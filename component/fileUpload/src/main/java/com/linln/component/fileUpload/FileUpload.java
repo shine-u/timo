@@ -1,6 +1,7 @@
 package com.linln.component.fileUpload;
 
 import com.linln.common.exception.ResultException;
+import com.linln.common.utils.Const;
 import com.linln.common.utils.SpringContextUtil;
 import com.linln.common.utils.ToolUtil;
 import com.linln.component.fileUpload.config.properties.UploadProjectProperties;
@@ -39,8 +40,9 @@ public class FileUpload {
             throw new ResultException(UploadResultEnum.NO_FILE_NULL);
         }
         Upload upload = new Upload();
-        upload.setMime(multipartFile.getContentType());
+        upload.setType(multipartFile.getContentType());
         upload.setSize(multipartFile.getSize());
+        upload.setStatus(Const.StatusEnum.SUCCESS.getCode());
         upload.setName(FileUpload.genFileName(multipartFile.getOriginalFilename()));
         upload.setPath(getPathPattern() + modulePath + FileUpload.genDateMkdir("yyyyMMdd") + upload.getName());
         return upload;

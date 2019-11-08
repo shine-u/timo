@@ -31,11 +31,14 @@ public class Upload implements Serializable {
 	/** 文件名 */
 	private String name;
 
-	/** 文件路径 */
+	/** 文件存放路径 */
 	private String path;
 
+    /** 文件访问路径 */
+    private String url;
+
 	/** 文件类型 */
-	private String mime;
+	private String type;
 
 	/** 文件大小 */
 	private Long size;
@@ -46,10 +49,16 @@ public class Upload implements Serializable {
 	/** 文件sha1值 */
 	private String sha1;
 
+    /** 状态 */
+    private Integer status;
+
 	/** 创建时间 */
 	@CreatedDate
-	private Date createDate;
+	private Date createTime;
 
+    /** 修改时间 */
+    @CreatedDate
+    private Date updateTime;
 	/** 创建者 */
 	@CreatedBy
 	@ManyToOne(fetch=FetchType.LAZY)
