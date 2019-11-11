@@ -9,45 +9,50 @@
     <name>后台管理模块</name>
 
     <parent>
-        <groupId>com.linln</groupId>
+        <groupId>com.shine</groupId>
         <artifactId>timo</artifactId>
         <version>2.0.3</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>com.linln</groupId>
+            <groupId>com.shine</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--开发模块，上线部署可以注释掉-->
         <dependency>
-            <groupId>com.linln</groupId>
+            <groupId>com.shine</groupId>
             <artifactId>devtools</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.linln.modules</groupId>
+            <groupId>com.shine.modules</groupId>
             <artifactId>system</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.linln.component</groupId>
+            <groupId>com.shine.modules</groupId>
+            <artifactId>business</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.shine.component</groupId>
             <artifactId>shiro</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.linln.component</groupId>
+            <groupId>com.shine.component</groupId>
             <artifactId>actionLog</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.linln.component</groupId>
+            <groupId>com.shine.component</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.linln.component</groupId>
+            <groupId>com.shine.component</groupId>
             <artifactId>fileUpload</artifactId>
             <version>${project.version}</version>
         </dependency>

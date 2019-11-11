@@ -33,16 +33,16 @@ CREATE TABLE IF NOT EXISTS `sys_action_log` (
 -- 正在导出表  timo.sys_action_log 的数据：~10 rows (大约)
 /*!40000 ALTER TABLE `sys_action_log` DISABLE KEYS */;
 INSERT INTO `sys_action_log` (`id`, `name`, `type`, `ipaddr`, `clazz`, `method`, `model`, `record_id`, `message`, `create_date`, `oper_name`, `oper_by`) VALUES
-	(1, '用户登录', 2, '127.0.0.1', 'com.linln.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-10-31 15:20:29', '超级管理员', 1),
-	(2, '用户登录', 2, '127.0.0.1', 'com.linln.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-10-31 17:51:54', '超级管理员', 1),
-	(3, '用户管理', 1, '127.0.0.1', 'com.linln.admin.system.controller.UserController', 'save', 'sys_user', 1, '更新用户成功：admin', '2019-10-31 18:04:23', '超级管理员', 1),
-	(4, '用户登录', 2, '127.0.0.1', 'com.linln.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录失败：[admin]用户名或密码错误', '2019-11-01 15:36:05', 'admin', NULL),
-	(5, '用户登录', 2, '127.0.0.1', 'com.linln.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录失败：[admin]用户名或密码错误', '2019-11-01 15:36:16', 'admin', NULL),
-	(6, '用户登录', 2, '127.0.0.1', 'com.linln.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-11-01 15:36:37', '超级管理员', 1),
-	(7, '用户登录', 2, '127.0.0.1', 'com.linln.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-11-06 19:51:41', '超级管理员', 1),
-	(8, '字典管理', 1, '127.0.0.1', 'com.linln.admin.system.controller.DictController', 'save', 'sys_dict', 4, '更新字典：菜单类型', '2019-11-06 20:08:46', '超级管理员', 1),
-	(9, '用户密码', 1, '127.0.0.1', 'com.linln.admin.system.controller.UserController', 'editPassword', 'sys_user', 1, '修改用户密码成功admin', '2019-11-06 20:09:17', '超级管理员', 1),
-	(10, '用户密码', 1, '127.0.0.1', 'com.linln.admin.system.controller.UserController', 'editPassword', 'sys_user', 2, '修改用户密码成功linln', '2019-11-06 20:09:17', '超级管理员', 1);
+	(1, '用户登录', 2, '127.0.0.1', 'com.shine.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-10-31 15:20:29', '超级管理员', 1),
+	(2, '用户登录', 2, '127.0.0.1', 'com.shine.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-10-31 17:51:54', '超级管理员', 1),
+	(3, '用户管理', 1, '127.0.0.1', 'com.shine.admin.system.controller.UserController', 'save', 'sys_user', 1, '更新用户成功：admin', '2019-10-31 18:04:23', '超级管理员', 1),
+	(4, '用户登录', 2, '127.0.0.1', 'com.shine.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录失败：[admin]用户名或密码错误', '2019-11-01 15:36:05', 'admin', NULL),
+	(5, '用户登录', 2, '127.0.0.1', 'com.shine.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录失败：[admin]用户名或密码错误', '2019-11-01 15:36:16', 'admin', NULL),
+	(6, '用户登录', 2, '127.0.0.1', 'com.shine.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-11-01 15:36:37', '超级管理员', 1),
+	(7, '用户登录', 2, '127.0.0.1', 'com.shine.admin.system.controller.LoginController', 'login', NULL, NULL, '后台登录成功', '2019-11-06 19:51:41', '超级管理员', 1),
+	(8, '字典管理', 1, '127.0.0.1', 'com.shine.admin.system.controller.DictController', 'save', 'sys_dict', 4, '更新字典：菜单类型', '2019-11-06 20:08:46', '超级管理员', 1),
+	(9, '用户密码', 1, '127.0.0.1', 'com.shine.admin.system.controller.UserController', 'editPassword', 'sys_user', 1, '修改用户密码成功admin', '2019-11-06 20:09:17', '超级管理员', 1),
+	(10, '用户密码', 1, '127.0.0.1', 'com.shine.admin.system.controller.UserController', 'editPassword', 'sys_user', 2, '修改用户密码成功linln', '2019-11-06 20:09:17', '超级管理员', 1);
 /*!40000 ALTER TABLE `sys_action_log` ENABLE KEYS */;
 
 -- 导出  表 timo.sys_dept 结构
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `sys_dept` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:冻结,3:删除）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKifwd1h4ciusl3nnxrpfpv316u` (`create_by`),
   KEY `FK83g45s1cjqqfpifhulqhv807m` (`update_by`),
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `sys_dict` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:冻结,3:删除）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKag4shuprf2tjot9i1mhh37kk6` (`create_by`),
   KEY `FKoyng5jlifhsme0gc1lwiub0lr` (`update_by`),
@@ -98,29 +98,36 @@ CREATE TABLE IF NOT EXISTS `sys_dict` (
 -- 正在导出表  timo.sys_dict 的数据：~6 rows (大约)
 /*!40000 ALTER TABLE `sys_dict` DISABLE KEYS */;
 INSERT INTO `sys_dict` (`id`, `title`, `name`, `type`, `value`, `remark`, `create_date`, `update_date`, `create_by`, `update_by`, `status`) VALUES
-	(1, '数据状态', 'DATA_STATUS', 2, '1:正常,2:冻结,3:删除', '', '2018-10-05 16:03:11', '2018-10-05 16:11:41', 1, 1, 1),
+	(1, '数据状态', 'DATA_STATUS', 2, '-1:删除,0:冻结,1:正常', '', '2018-10-05 16:03:11', '2018-10-05 16:11:41', 1, 1, 1),
 	(2, '字典类型', 'DICT_TYPE', 2, '2:键值对', '', '2018-10-05 20:08:55', '2019-01-17 23:39:23', 1, 1, 1),
 	(3, '用户性别', 'USER_SEX', 2, '1:男,2:女', '', '2018-10-05 20:12:32', '2018-10-05 20:12:32', 1, 1, 1),
 	(4, '菜单类型', 'MENU_TYPE', 2, '1:目录,2:菜单,3:按钮', '', '2018-10-05 20:24:57', '2019-11-06 20:08:46', 1, 1, 1),
 	(5, '搜索栏状态', 'SEARCH_STATUS', 2, '1:正常,2:冻结', '', '2018-10-05 20:25:45', '2019-02-26 00:34:34', 1, 1, 1),
 	(6, '日志类型', 'LOG_TYPE', 2, '1:业务,2:登录,3:系统', '', '2018-10-05 20:28:47', '2019-02-26 00:31:43', 1, 1, 1);
-/*!40000 ALTER TABLE `sys_dict` ENABLE KEYS */;
+create table sys_file
+(
+    id          bigint auto_increment comment '主键ID'
+        primary key,
+    name        varchar(255) null comment '文件名',
+    path        varchar(255) null comment '文件存放路径',
+    url         varchar(255) null comment '文件获取路径',
+    type        varchar(255) null comment 'MIME文件类型',
+    size        bigint       null comment '文件大小',
+    md5         varchar(255) null comment 'MD5值',
+    sha1        varchar(255) null comment 'SHA1值',
+    status      int          null comment '状态（-1删除，0禁用，1正常）',
+    create_by   bigint       null comment '上传者',
+    create_time datetime     null comment '修改时间',
+    update_time datetime     null comment '修改时间',
+    constraint FKkkles8yp0a156p4247cc22ovn
+        foreign key (create_by) references sys_user (id)
+)
+    charset = utf8;
 
 -- 导出  表 timo.sys_file 结构
-CREATE TABLE IF NOT EXISTS `sys_file` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `name` varchar(255) DEFAULT NULL COMMENT '文件名',
-  `path` varchar(255) DEFAULT NULL COMMENT '文件路径',
-  `mime` varchar(255) DEFAULT NULL COMMENT 'MIME文件类型',
-  `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
-  `md5` varchar(255) DEFAULT NULL COMMENT 'MD5值',
-  `sha1` varchar(255) DEFAULT NULL COMMENT 'SHA1值',
-  `create_by` bigint(20) DEFAULT NULL COMMENT '上传者',
-  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`),
-  KEY `FKkkles8yp0a156p4247cc22ovn` (`create_by`),
-  CONSTRAINT `FKkkles8yp0a156p4247cc22ovn` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40000 ALTER TABLE `sys_dict` ENABLE KEYS */;
+
+
 
 -- 正在导出表  timo.sys_file 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `sys_file` DISABLE KEYS */;
@@ -142,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:冻结,3:删除）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKoxg2hi96yr9pf2m0stjomr3we` (`create_by`),
   KEY `FKsiko0qcr8ddamvrxf1tk4opgc` (`update_by`),
@@ -202,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `sys_role` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:冻结,3:删除）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKdkwvv0rm6j3d5l6hwsy2dplol` (`create_by`),
   KEY `FKrouqqi3f2bgc5o83wdstlh6q4` (`update_by`),
@@ -317,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:冻结,3:删除）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKb3pkx0wbo6o8i8lj0gxr37v1n` (`dept_id`),
   CONSTRAINT `FKb3pkx0wbo6o8i8lj0gxr37v1n` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`)
@@ -327,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`id`, `username`, `nickname`, `password`, `salt`, `dept_id`, `picture`, `sex`, `email`, `phone`, `remark`, `create_date`, `update_date`, `status`) VALUES
 	(1, 'admin', '超级管理员', '5fa04c0758ae596e2a93cd2802640693a5b08bdfacd4307abce323c85e481154', '7rl2t9', 1, NULL, 1, '10086@163.com', '10086', '', '2018-08-09 23:00:03', '2019-11-06 20:09:17', 1),
-	(2, 'linln', '小懒虫', '28bfc4f19b0d4b8a40018faf9aec4ad9db5491082dda439040b1c35ff8c533a7', 'gzNkXt', 2, NULL, 2, '1008612@qq.com', '1008612', '', '2018-09-30 16:25:22', '2019-11-06 20:09:17', 1);
+	(2, 'linln', 'shine', '28bfc4f19b0d4b8a40018faf9aec4ad9db5491082dda439040b1c35ff8c533a7', 'gzNkXt', 2, NULL, 2, '1008612@qq.com', '1008612', '', '2018-09-30 16:25:22', '2019-11-06 20:09:17', 1);
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 
 -- 导出  表 timo.sys_user_role 结构
@@ -339,6 +346,23 @@ CREATE TABLE IF NOT EXISTS `sys_user_role` (
   CONSTRAINT `FKb40xxfch70f5qnyfw8yme1n1s` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`),
   CONSTRAINT `FKhh52n8vd4ny9ff4x9fb8v65qx` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table db_rember.tb_post
+(
+    id          bigint                   not null comment '主键'
+        primary key,
+    post_title  varchar(64) charset utf8 not null comment '帖子标题',
+    content     text                     not null comment '内容',
+    create_by   bigint                   not null comment '创建者',
+    update_by   bigint                   not null comment '修改者',
+    status      int                      null comment '状态（-1删除，0禁用，1正常）',
+    create_time datetime                 null comment '创建时间',
+    update_time datetime                 null comment '修改时间',
+    constraint FKfa899no3yatxfqegjcdtne14f
+        foreign key (create_by) references db_rember.sys_user (id),
+    constraint FKhnbcnjwveq4lwo22pf9ayi9w5
+        foreign key (update_by) references db_rember.sys_user (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '帖子表';
 
 -- 正在导出表  timo.sys_user_role 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `sys_user_role` DISABLE KEYS */;

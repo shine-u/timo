@@ -17,7 +17,7 @@ spring:
 ## 数据库配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://121.40.94.59:3306/db_timo?useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://121.40.94.59:3306/db_rember?useSSL=false&characterEncoding=utf-8
     username: shine
     password: Shine_2019
 
@@ -27,7 +27,7 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      hibernate.dialect: com.linln.common.mysql.MySQLDialectUTF8
+      hibernate.dialect: com.shine.common.mysql.MySQLDialectUTF8
       hibernate.format_sql: false
     open-in-view: true
 
