@@ -21,7 +21,7 @@ public enum JwtResultEnums implements ResultInterface {
      * 账号问题
      */
     AUTH_REQUEST_ERROR(401, "用户名或密码错误"),
-    AUTH_REQUEST_LOCKED(402, "该账号已被冻结"),
+    AUTH_REQUEST_LOCKED(402, "该账号已被禁用"),
     ;
 
     private Integer code;

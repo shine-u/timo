@@ -50,7 +50,7 @@ public interface DictService {
     Dict save(Dict dict);
 
     /**
-     * 状态(启用，冻结，删除)/批量状态处理
+     * 状态(启用，禁用，删除)/批量状态处理
      * @param statusEnum 数据状态
      * @param idList 数据ID列表
      * @return 操作结果

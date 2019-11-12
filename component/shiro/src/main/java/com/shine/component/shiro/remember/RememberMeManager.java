@@ -3,7 +3,7 @@ package com.shine.component.shiro.remember;
 import com.shine.common.utils.EntityBeanUtil;
 import com.shine.component.shiro.AuthRealm;
 import com.shine.component.shiro.ShiroUtil;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -38,11 +38,11 @@ public class RememberMeManager extends CookieRememberMeManager {
     protected byte[] serialize(PrincipalCollection principals) {
 
         // 获取用户信息
-        User user = (User) principals.getPrimaryPrincipal();
+        SysUser user = (SysUser) principals.getPrimaryPrincipal();
 
         // 克隆一个Principal对象，隐藏用户密码及密码盐，消除部门及角色数据
         String[] ignores = {"password", "salt", "dept", "roles"};
-        User principal = (User) EntityBeanUtil.cloneBean(user, ignores);
+        SysUser principal = (SysUser) EntityBeanUtil.cloneBean(user, ignores);
 
         // 二次加密用户密码
         String password = ShiroUtil.encrypt(user.getPassword(), user.getSalt());
@@ -64,7 +64,7 @@ public class RememberMeManager extends CookieRememberMeManager {
 
         // 获取“记住我”缓存中的用户对象
         PrincipalCollection collection = super.deserialize(extSerializeData(serializedIdentity));
-        User principal = (User) collection.getPrimaryPrincipal();
+        SysUser principal = (SysUser) collection.getPrimaryPrincipal();
 
         // 提取二次加密密码盐数据
         byte[] encrypt = new byte[ENCRYPT_LENGTH];

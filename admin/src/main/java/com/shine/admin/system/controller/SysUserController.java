@@ -18,10 +18,10 @@ import com.shine.component.excel.ExcelUtil;
 import com.shine.component.fileUpload.config.properties.UploadProjectProperties;
 import com.shine.component.shiro.ShiroUtil;
 import com.shine.modules.system.domain.Role;
-import com.shine.modules.system.domain.User;
-import com.shine.modules.system.repository.UserRepository;
+import com.shine.modules.system.domain.SysUser;
+import com.shine.modules.system.repository.SysUserRepository;
 import com.shine.modules.system.service.RoleService;
-import com.shine.modules.system.service.UserService;
+import com.shine.modules.system.service.SysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -49,10 +49,10 @@ import java.util.Set;
  */
 @Controller
 @RequestMapping("/system/user")
-public class UserController {
+public class SysUserController {
 
     @Autowired
-    private UserService userService;
+    private SysUserService sysUserService;
 
     @Autowired
     private RoleService roleService;
@@ -62,10 +62,10 @@ public class UserController {
      */
     @GetMapping("/index")
     @RequiresPermissions("system:user:index")
-    public String index(Model model, User user) {
+    public String index(Model model, SysUser user) {
 
         // 获取用户列表
-        Page<User> list = userService.getPageList(user);
+        Page<SysUser> list = sysUserService.getPageList(user);
 
         // 封装数据
         model.addAttribute("list", list.getContent());
@@ -88,7 +88,7 @@ public class UserController {
      */
     @GetMapping("/edit/{id}")
     @RequiresPermissions("system:user:edit")
-    public String toEdit(@PathVariable("id") User user, Model model) {
+    public String toEdit(@PathVariable("id") SysUser user, Model model) {
         model.addAttribute("user", user);
         return "/system/user/add";
     }
@@ -102,7 +102,7 @@ public class UserController {
     @RequiresPermissions({"system:user:add", "system:user:edit"})
     @ResponseBody
     @ActionLog(key = UserAction.USER_SAVE, action = UserAction.class)
-    public ResultVo save(@Validated UserValid valid, @EntityParam User user) {
+    public ResultVo save(@Validated UserValid valid, @EntityParam SysUser user) {
 
         // 验证数据是否合格
         if (user.getId() == null) {
@@ -125,7 +125,7 @@ public class UserController {
         }
 
         // 判断用户名是否重复
-        if (userService.repeatByUsername(user)) {
+        if (sysUserService.repeatByUsername(user)) {
             throw new ResultException(ResultEnum.USER_EXIST);
         }
 
@@ -137,13 +137,13 @@ public class UserController {
                 throw new ResultException(ResultEnum.NO_ADMIN_AUTH);
             }
 
-            User beUser = userService.getById(user.getId());
+            SysUser beUser = sysUserService.getById(user.getId());
             String[] fields = {"password", "salt", "picture", "roles"};
             EntityBeanUtil.copyProperties(beUser, user, fields);
         }
 
         // 保存数据
-        userService.save(user);
+        sysUserService.save(user);
         return ResultVoUtil.SAVE_SUCCESS;
     }
 
@@ -152,7 +152,7 @@ public class UserController {
      */
     @GetMapping("/detail/{id}")
     @RequiresPermissions("system:user:detail")
-    public String toDetail(@PathVariable("id") User user, Model model) {
+    public String toDetail(@PathVariable("id") SysUser user, Model model) {
         model.addAttribute("user", user);
         return "/system/user/detail";
     }
@@ -176,7 +176,7 @@ public class UserController {
     @ActionLog(key = UserAction.EDIT_PWD, action = UserAction.class)
     public ResultVo editPassword(String password, String confirm,
                                  @RequestParam(value = "ids", required = false) List<Long> ids,
-                                 @RequestParam(value = "ids", required = false) List<User> users) {
+                                 @RequestParam(value = "ids", required = false) List<SysUser> users) {
 
         // 判断密码是否为空
         if (password.isEmpty() || "".equals(password.trim())) {
@@ -203,7 +203,7 @@ public class UserController {
         });
 
         // 保存数据
-        userService.save(users);
+        sysUserService.save(users);
         return ResultVoUtil.success("修改成功");
     }
 
@@ -212,7 +212,7 @@ public class UserController {
      */
     @GetMapping("/role")
     @RequiresPermissions("system:user:role")
-    public String toRole(@RequestParam(value = "ids") User user, Model model) {
+    public String toRole(@RequestParam(value = "ids") SysUser user, Model model) {
         // 获取指定用户角色列表
         Set<Role> authRoles = user.getRoles();
         // 获取全部角色列表
@@ -233,7 +233,7 @@ public class UserController {
     @ResponseBody
     @ActionLog(key = UserAction.EDIT_ROLE, action = UserAction.class)
     public ResultVo auth(
-            @RequestParam(value = "id", required = true) User user,
+            @RequestParam(value = "id", required = true) SysUser user,
             @RequestParam(value = "roleId", required = false) HashSet<Role> roles) {
 
         // 不允许操作超级管理员数据
@@ -246,7 +246,7 @@ public class UserController {
         user.setRoles(roles);
 
         // 保存数据
-        userService.save(user);
+        sysUserService.save(user);
         return ResultVoUtil.SAVE_SUCCESS;
     }
 
@@ -276,8 +276,8 @@ public class UserController {
     @GetMapping("/export")
     @ResponseBody
     public void exportExcel() {
-        UserRepository userRepository = SpringContextUtil.getBean(UserRepository.class);
-        ExcelUtil.exportExcel(User.class, userRepository.findAll());
+        SysUserRepository sysUserRepository = SpringContextUtil.getBean(SysUserRepository.class);
+        ExcelUtil.exportExcel(SysUser.class, sysUserRepository.findAll());
     }
 
     /**
@@ -298,7 +298,7 @@ public class UserController {
 
         // 更新状态
         StatusEnum statusEnum = StatusUtil.getStatusEnum(param);
-        if (userService.updateStatus(statusEnum, ids)) {
+        if (sysUserService.updateStatus(statusEnum, ids)) {
             return ResultVoUtil.success(statusEnum.getMessage() + "成功");
         } else {
             return ResultVoUtil.error(statusEnum.getMessage() + "失败，请重新操作");

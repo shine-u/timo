@@ -37,7 +37,7 @@ public class ActionLog implements Serializable {
     @NotFound(action=NotFoundAction.IGNORE)
     @JoinColumn(name="oper_by")
     @JsonIgnore
-    private User operBy;
+    private SysUser operBy;
     private String operName;
 
     public ActionLog(){}

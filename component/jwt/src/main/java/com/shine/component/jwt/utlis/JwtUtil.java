@@ -9,7 +9,7 @@ import com.shine.common.exception.ResultException;
 import com.shine.common.utils.HttpServletUtil;
 import com.shine.common.utils.ToolUtil;
 import com.shine.component.jwt.enums.JwtResultEnums;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
@@ -28,7 +28,7 @@ public class JwtUtil {
      * @param amount 过期天数
      */
     public static String getToken(String username, String secret, int amount){
-        User user = new User();
+        SysUser user = new SysUser();
         user.setUsername(username);
         return getToken(user, secret, amount);
     }
@@ -39,7 +39,7 @@ public class JwtUtil {
      * @param secret 秘钥
      * @param amount 过期天数
      */
-    public static String getToken(User user, String secret, int amount){
+    public static String getToken(SysUser user, String secret, int amount){
         // 过期时间
         Calendar ca = Calendar.getInstance();
         ca.add(Calendar.DATE, amount);

@@ -16,9 +16,9 @@ public enum StatusEnum {
      */
     OK(StatusConst.OK, "启用"),
     /**
-     * 被冻结的数据，不可用
+     * 被禁用的数据，不可用
      */
-    FREEZED(StatusConst.FREEZED, "冻结"),
+    FREEZED(StatusConst.FREEZED, "禁用"),
     /**
      * 数据已被删除
      */

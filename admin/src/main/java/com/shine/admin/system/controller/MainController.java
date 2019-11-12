@@ -14,12 +14,11 @@ import com.shine.component.shiro.ShiroUtil;
 import com.shine.modules.system.domain.Menu;
 import com.shine.modules.system.domain.Role;
 import com.shine.modules.system.domain.Upload;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import com.shine.modules.system.enums.MenuTypeEnum;
 import com.shine.modules.system.service.MenuService;
-import com.shine.modules.system.service.UserService;
+import com.shine.modules.system.service.SysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +42,7 @@ import java.util.Set;
 public class MainController{
 
     @Autowired
-    private UserService userService;
+    private SysUserService sysUserService;
 
     @Autowired
     private MenuService menuService;
@@ -55,7 +54,7 @@ public class MainController{
     @RequiresPermissions("index")
     public String main(Model model){
         // 获取当前登录的用户
-        User user = ShiroUtil.getSubject();
+        SysUser user = ShiroUtil.getSubject();
 
         // 菜单键值对(ID->菜单)
         Map<Long, Menu> keyMenu = new HashMap<>(16);
@@ -111,7 +110,7 @@ public class MainController{
     @GetMapping("/userInfo")
     @RequiresPermissions("index")
     public String toUserInfo(Model model){
-        User user = ShiroUtil.getSubject();
+        SysUser user = ShiroUtil.getSubject();
         model.addAttribute("user", user);
         return "/system/main/userInfo";
     }
@@ -126,9 +125,9 @@ public class MainController{
         UploadController uploadController = SpringContextUtil.getBean(UploadController.class);
         ResultVo imageResult = uploadController.uploadPicture(picture);
         if(imageResult.getCode().equals(ResultEnum.SUCCESS.getCode())){
-            User subject = ShiroUtil.getSubject();
+            SysUser subject = ShiroUtil.getSubject();
             subject.setPicture(((Upload) imageResult.getData()).getPath());
-            userService.save(subject);
+            sysUserService.save(subject);
             return ResultVoUtil.SAVE_SUCCESS;
         }else {
             return imageResult;
@@ -141,15 +140,15 @@ public class MainController{
     @PostMapping("/userInfo")
     @RequiresPermissions("index")
     @ResponseBody
-    public ResultVo userInfo(@Validated UserValid valid, User user){
+    public ResultVo userInfo(@Validated UserValid valid, SysUser user){
 
         // 复制保留无需修改的数据
-        User subUser = ShiroUtil.getSubject();
+        SysUser subUser = ShiroUtil.getSubject();
         String[] ignores = {"id", "username", "password", "salt", "picture", "dept", "roles"};
         EntityBeanUtil.copyPropertiesIgnores(user, subUser, ignores);
 
         // 保存数据
-        userService.save(subUser);
+        sysUserService.save(subUser);
         return ResultVoUtil.success("保存成功", new URL("/userInfo"));
     }
 
@@ -170,7 +169,7 @@ public class MainController{
     @ResponseBody
     public ResultVo editPwd(String original, String password, String confirm){
         // 判断原来密码是否有误
-        User subUser = ShiroUtil.getSubject();
+        SysUser subUser = ShiroUtil.getSubject();
         String oldPwd = ShiroUtil.encrypt(original, subUser.getSalt());
         if (original.isEmpty() || "".equals(original.trim()) || !oldPwd.equals(subUser.getPassword())) {
             throw new ResultException(ResultEnum.USER_OLD_PWD_ERROR);
@@ -193,7 +192,7 @@ public class MainController{
         subUser.setSalt(salt);
 
         // 保存数据
-        userService.save(subUser);
+        sysUserService.save(subUser);
         return ResultVoUtil.success("修改成功");
     }
 }

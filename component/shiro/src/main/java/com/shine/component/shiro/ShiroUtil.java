@@ -3,9 +3,9 @@ package com.shine.component.shiro;
 import com.shine.common.utils.EncryptUtil;
 import com.shine.common.utils.SpringContextUtil;
 import com.shine.modules.system.domain.Role;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import com.shine.modules.system.service.RoleService;
-import com.shine.modules.system.service.UserService;
+import com.shine.modules.system.service.SysUserService;
 import org.apache.shiro.SecurityUtils;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
@@ -53,8 +53,8 @@ public class ShiroUtil {
     /**
      * 获取当前用户对象
      */
-    public static User getSubject() {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
+    public static SysUser getSubject() {
+        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
 
         // 初始化延迟加载的部门信息
         if (user != null && !Hibernate.isInitialized(user.getDept())) {
@@ -62,8 +62,8 @@ public class ShiroUtil {
                 Hibernate.initialize(user.getDept());
             } catch (LazyInitializationException e) {
                 // 部门数据延迟加载超时，重新查询用户数据（用于更新“记住我”状态登录的数据）
-                UserService userService = SpringContextUtil.getBean(UserService.class);
-                User reload = userService.getById(user.getId());
+                SysUserService sysUserService = SpringContextUtil.getBean(SysUserService.class);
+                SysUser reload = sysUserService.getById(user.getId());
                 Hibernate.initialize(reload.getDept());
                 // 将重载用户数据拷贝到登录用户中
                 BeanUtils.copyProperties(reload, user, "roles");
@@ -77,11 +77,11 @@ public class ShiroUtil {
      * 获取当前用户角色列表
      */
     public static Set<Role> getSubjectRoles() {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
 
         // 如果用户为空，则返回空列表
         if (user == null) {
-            user = new User();
+            user = new SysUser();
         }
 
         // 判断角色列表是否已缓存

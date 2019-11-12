@@ -48,18 +48,18 @@ public class Role implements Serializable {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "create_by")
     @JsonIgnore
-    private User createBy;
+    private SysUser createBy;
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "update_by")
     @JsonIgnore
-    private User updateBy;
+    private SysUser updateBy;
     private Byte status = StatusEnum.OK.getCode();
 
     @ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
-    private Set<User> users = new HashSet<>(0);
+    private Set<SysUser> users = new HashSet<>(0);
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "sys_role_menu",

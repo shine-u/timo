@@ -33,7 +33,7 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_user" + StatusUtil.SLICE_DELETE)
 @Where(clause = StatusUtil.NOT_DELETE)
 @Excel("用户数据")
-public class User implements Serializable {
+public class SysUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Excel(value = "用户ID", type = ExcelType.EXPORT)

@@ -1,6 +1,6 @@
 package com.shine.component.shiro.config;
 
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +14,11 @@ import java.util.Optional;
  * @date 2018/8/14
  */
 @Configuration
-public class AuditorConfig implements AuditorAware<User> {
+public class AuditorConfig implements AuditorAware<SysUser> {
     @Override
-    public Optional<User> getCurrentAuditor() {
+    public Optional<SysUser> getCurrentAuditor() {
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
+        SysUser user = (SysUser) subject.getPrincipal();
         return Optional.ofNullable(user);
     }
 }

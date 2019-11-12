@@ -4,9 +4,9 @@ import com.shine.common.enums.ResultEnum;
 import com.shine.common.enums.StatusEnum;
 import com.shine.common.exception.ResultException;
 import com.shine.modules.system.domain.Dept;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import com.shine.modules.system.repository.DeptRepository;
-import com.shine.modules.system.repository.UserRepository;
+import com.shine.modules.system.repository.SysUserRepository;
 import com.shine.modules.system.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -29,7 +29,7 @@ public class DeptServiceImpl implements DeptService {
     private DeptRepository deptRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private SysUserRepository sysUserRepository;
 
     /**
      * 根据部门管理ID查询部门管理数据
@@ -99,7 +99,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     /**
-     * 状态(启用，冻结，删除)/批量状态处理
+     * 状态(启用，禁用，删除)/批量状态处理
      */
     @Override
     @Transactional
@@ -114,7 +114,7 @@ public class DeptServiceImpl implements DeptService {
 
         treeDepts.forEach(dept -> {
             if(statusEnum == StatusEnum.DELETE){
-                List<User> users = userRepository.findByDept(dept);
+                List<SysUser> users = sysUserRepository.findByDept(dept);
                 if(users.size() > 0){
                     throw new ResultException(ResultEnum.DEPT_EXIST_USER);
                 }

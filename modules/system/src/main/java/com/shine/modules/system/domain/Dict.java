@@ -45,12 +45,12 @@ public class Dict implements Serializable {
     @NotFound(action=NotFoundAction.IGNORE)
     @JoinColumn(name="create_by")
     @JsonIgnore
-    private User createBy;
+    private SysUser createBy;
     @LastModifiedBy
     @ManyToOne(fetch=FetchType.LAZY)
     @NotFound(action=NotFoundAction.IGNORE)
     @JoinColumn(name="update_by")
     @JsonIgnore
-    private User updateBy;
+    private SysUser updateBy;
     private Byte status = StatusEnum.OK.getCode();
 }

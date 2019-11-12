@@ -3,8 +3,8 @@ package com.shine.component.shiro;
 import com.shine.common.constant.AdminConst;
 import com.shine.common.enums.StatusEnum;
 import com.shine.modules.system.domain.Role;
-import com.shine.modules.system.domain.User;
-import com.shine.modules.system.service.UserService;
+import com.shine.modules.system.domain.SysUser;
+import com.shine.modules.system.service.SysUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -26,7 +26,7 @@ import java.util.Set;
 public class AuthRealm extends AuthorizingRealm {
 
     @Autowired
-    private UserService userService;
+    private SysUserService sysUserService;
 
     /**
      * 授权逻辑
@@ -35,7 +35,7 @@ public class AuthRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         // 获取用户Principal对象
-        User user = (User) principal.getPrimaryPrincipal();
+        SysUser user = (SysUser) principal.getPrimaryPrincipal();
 
         // 管理员拥有所有权限
         if (user.getId().equals(AdminConst.ADMIN_ID)) {
@@ -67,7 +67,7 @@ public class AuthRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         // 获取数据库中的用户名密码
-        User user = userService.getByName(token.getUsername());
+        SysUser user = sysUserService.getByName(token.getUsername());
 
         // 判断用户名是否存在
         if (user == null) {

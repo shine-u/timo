@@ -6,7 +6,7 @@ import com.shine.component.actionLog.action.base.ResetLog;
 import com.shine.component.actionLog.action.model.BusinessMethod;
 import com.shine.component.actionLog.action.model.LoginMethod;
 import com.shine.modules.system.domain.ActionLog;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import com.shine.modules.system.service.ActionLogService;
 import com.shine.common.utils.SpringContextUtil;
 import org.springframework.beans.BeanUtils;
@@ -65,8 +65,8 @@ public class UserAction extends BaseActionMap {
      * 修改用户密码行为方法
      */
     public void editPwd(ResetLog resetLog){
-        @SuppressWarnings("unchecked") List<User> users = (List<User>) resetLog.getParam("users");
-        Table table = User.class.getAnnotation(Table.class);
+        @SuppressWarnings("unchecked") List<SysUser> users = (List<SysUser>) resetLog.getParam("users");
+        Table table = SysUser.class.getAnnotation(Table.class);
         String message = "修改用户密码成功";
         if(!resetLog.isSuccess()){
             message = "修改用户密码失败";
@@ -91,8 +91,8 @@ public class UserAction extends BaseActionMap {
      * 角色分配行为方法
      */
     public void editRole(ResetLog resetLog){
-        User user = (User) resetLog.getParam("user");
-        Table table = User.class.getAnnotation(Table.class);
+        SysUser user = (SysUser) resetLog.getParam("user");
+        Table table = SysUser.class.getAnnotation(Table.class);
         resetLog.getActionLog().setModel(table.name());
         resetLog.getActionLog().setRecordId(user.getId());
         if (resetLog.isSuccess()){

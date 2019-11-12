@@ -9,8 +9,8 @@ import com.shine.component.jwt.annotation.IgnorePermissions;
 import com.shine.component.jwt.config.properties.JwtProjectProperties;
 import com.shine.component.jwt.enums.JwtResultEnums;
 import com.shine.component.jwt.utlis.JwtUtil;
-import com.shine.modules.system.domain.User;
-import com.shine.modules.system.service.UserService;
+import com.shine.modules.system.domain.SysUser;
+import com.shine.modules.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,13 +28,13 @@ public class AuthController {
     private JwtProjectProperties properties;
 
     @Autowired
-    private UserService userService;
+    private SysUserService sysUserService;
 
     @IgnorePermissions
     @PostMapping("/api/auth")
     public ResultVo auth(String username, String password){
         // 根据用户名获取系统用户数据
-        User user = userService.getByName(username);
+        SysUser user = sysUserService.getByName(username);
         if (user == null) {
             throw new ResultException(JwtResultEnums.AUTH_REQUEST_ERROR);
         } else if (user.getStatus().equals(StatusEnum.FREEZED.getCode())){

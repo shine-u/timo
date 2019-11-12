@@ -37,7 +37,7 @@
                         <button class="layui-btn">操作<span class="caret"></span></button>
                         <dl class="layui-nav-child layui-anim layui-anim-upbit">
                             <dd><a class="ajax-status" th:href="@{#{baseUrl}/status/ok}">启用</a></dd>
-                            <dd><a class="ajax-status" th:href="@{#{baseUrl}/status/freezed}">冻结</a></dd>
+                            <dd><a class="ajax-status" th:href="@{#{baseUrl}/status/freezed}">禁用</a></dd>
                             <dd><a class="ajax-status" th:href="@{#{baseUrl}/status/delete}">删除</a></dd>
                         </dl>
                     </div>

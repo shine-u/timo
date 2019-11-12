@@ -60,7 +60,7 @@ public class Dept implements Serializable {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "create_by")
     @JsonIgnore
-    private User createBy;
+    private SysUser createBy;
 
     /** 更新者 */
     @LastModifiedBy
@@ -68,7 +68,7 @@ public class Dept implements Serializable {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "update_by")
     @JsonIgnore
-    private User updateBy;
+    private SysUser updateBy;
 
     /** 数据状态 */
     private Byte status = StatusEnum.OK.getCode();

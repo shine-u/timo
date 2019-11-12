@@ -17,7 +17,7 @@ spring:
 ## 数据库配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://121.40.94.59:3306/db_rember?useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://121.40.94.59:3306/db_rember?useSSL=false&characterEncoding=utf-8&serverTimezone=UTC
     username: shine
     password: Shine_2019
 

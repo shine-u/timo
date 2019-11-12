@@ -3,10 +3,10 @@ package com.shine.modules.system.service.impl;
 import com.shine.common.data.PageSort;
 import com.shine.common.enums.StatusEnum;
 import com.shine.modules.system.domain.Dept;
-import com.shine.modules.system.domain.User;
-import com.shine.modules.system.repository.UserRepository;
+import com.shine.modules.system.domain.SysUser;
+import com.shine.modules.system.repository.SysUserRepository;
 import com.shine.modules.system.service.DeptService;
-import com.shine.modules.system.service.UserService;
+import com.shine.modules.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,10 +24,10 @@ import java.util.List;
  * @date 2018/8/14
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private SysUserRepository sysSysUserRepository;
 
     @Autowired
     private DeptService deptService;
@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
      * @return 用户数据
      */
     @Override
-    public User getByName(String username) {
-        return userRepository.findByUsername(username);
+    public SysUser getByName(String username) {
+        return sysSysUserRepository.findByUsername(username);
     }
 
     /**
@@ -48,9 +48,9 @@ public class UserServiceImpl implements UserService {
      * @return 用户数据
      */
     @Override
-    public Boolean repeatByUsername(User user) {
+    public Boolean repeatByUsername(SysUser user) {
         Long id = user.getId() != null ? user.getId() : Long.MIN_VALUE;
-        return userRepository.findByUsernameAndIdNot(user.getUsername(), id) != null;
+        return sysSysUserRepository.findByUsernameAndIdNot(user.getUsername(), id) != null;
     }
 
     /**
@@ -58,8 +58,8 @@ public class UserServiceImpl implements UserService {
      * @param id 用户ID
      */
     @Override
-    public User getById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public SysUser getById(Long id) {
+        return sysSysUserRepository.findById(id).orElse(null);
     }
 
     /**
@@ -69,15 +69,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public Page<User> getPageList(User user) {
+    public Page<SysUser> getPageList(SysUser user) {
         // 创建分页对象
         PageRequest page = PageSort.pageRequest(Sort.Direction.ASC);
 
         // 使用Specification复杂查询
-        return userRepository.findAll(new Specification<User>(){
+        return sysSysUserRepository.findAll(new Specification<SysUser>(){
 
             @Override
-            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<SysUser> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> preList = new ArrayList<>();
                 if(user.getId() != null){
                     preList.add(cb.equal(root.get("id").as(Long.class), user.getId()));
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
                     List<Dept> deptList = deptService.getListByPidLikeOk(dept.getId());
                     deptList.forEach(item -> deptIn.add(item.getId()));
 
-                    Join<User, Dept> join = root.join("dept", JoinType.INNER);
+                    Join<SysUser, Dept> join = root.join("dept", JoinType.INNER);
                     CriteriaBuilder.In<Long> in = cb.in(join.get("id").as(Long.class));
                     deptIn.forEach(in::value);
                     preList.add(in);
@@ -119,8 +119,8 @@ public class UserServiceImpl implements UserService {
      * @param user 用户实体类
      */
     @Override
-    public User save(User user){
-        return userRepository.save(user);
+    public SysUser save(SysUser user){
+        return sysSysUserRepository.save(user);
     }
 
     /**
@@ -129,20 +129,20 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public List<User> save(List<User> userList){
-        return userRepository.saveAll(userList);
+    public List<SysUser> save(List<SysUser> userList){
+        return sysSysUserRepository.saveAll(userList);
     }
 
     /**
-     * 状态(启用，冻结，删除)/批量状态处理
+     * 状态(启用，禁用，删除)/批量状态处理
      */
     @Override
     @Transactional
     public Boolean updateStatus(StatusEnum statusEnum, List<Long> ids){
         // 联级删除与角色之间的关联
         if(statusEnum == StatusEnum.DELETE){
-            return userRepository.deleteByIdIn(ids) > 0;
+            return sysSysUserRepository.deleteByIdIn(ids) > 0;
         }
-        return userRepository.updateStatus(statusEnum.getCode(), ids) > 0;
+        return sysSysUserRepository.updateStatus(statusEnum.getCode(), ids) > 0;
     }
 }

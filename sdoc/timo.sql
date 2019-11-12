@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `sys_dept` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:禁用,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKifwd1h4ciusl3nnxrpfpv316u` (`create_by`),
   KEY `FK83g45s1cjqqfpifhulqhv807m` (`update_by`),
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `sys_dict` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:禁用,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKag4shuprf2tjot9i1mhh37kk6` (`create_by`),
   KEY `FKoyng5jlifhsme0gc1lwiub0lr` (`update_by`),
@@ -98,11 +98,11 @@ CREATE TABLE IF NOT EXISTS `sys_dict` (
 -- 正在导出表  timo.sys_dict 的数据：~6 rows (大约)
 /*!40000 ALTER TABLE `sys_dict` DISABLE KEYS */;
 INSERT INTO `sys_dict` (`id`, `title`, `name`, `type`, `value`, `remark`, `create_date`, `update_date`, `create_by`, `update_by`, `status`) VALUES
-	(1, '数据状态', 'DATA_STATUS', 2, '-1:删除,0:冻结,1:正常', '', '2018-10-05 16:03:11', '2018-10-05 16:11:41', 1, 1, 1),
+	(1, '数据状态', 'DATA_STATUS', 2, '-1:删除,0:禁用,1:正常', '', '2018-10-05 16:03:11', '2018-10-05 16:11:41', 1, 1, 1),
 	(2, '字典类型', 'DICT_TYPE', 2, '2:键值对', '', '2018-10-05 20:08:55', '2019-01-17 23:39:23', 1, 1, 1),
 	(3, '用户性别', 'USER_SEX', 2, '1:男,2:女', '', '2018-10-05 20:12:32', '2018-10-05 20:12:32', 1, 1, 1),
 	(4, '菜单类型', 'MENU_TYPE', 2, '1:目录,2:菜单,3:按钮', '', '2018-10-05 20:24:57', '2019-11-06 20:08:46', 1, 1, 1),
-	(5, '搜索栏状态', 'SEARCH_STATUS', 2, '1:正常,2:冻结', '', '2018-10-05 20:25:45', '2019-02-26 00:34:34', 1, 1, 1),
+	(5, '搜索栏状态', 'SEARCH_STATUS', 2, '1:正常,2:禁用', '', '2018-10-05 20:25:45', '2019-02-26 00:34:34', 1, 1, 1),
 	(6, '日志类型', 'LOG_TYPE', 2, '1:业务,2:登录,3:系统', '', '2018-10-05 20:28:47', '2019-02-26 00:31:43', 1, 1, 1);
 create table sys_file
 (
@@ -111,7 +111,7 @@ create table sys_file
     name        varchar(255) null comment '文件名',
     path        varchar(255) null comment '文件存放路径',
     url         varchar(255) null comment '文件获取路径',
-    type        varchar(255) null comment 'MIME文件类型',
+    type        varchar(255) null comment '文件类型',
     size        bigint       null comment '文件大小',
     md5         varchar(255) null comment 'MD5值',
     sha1        varchar(255) null comment 'SHA1值',
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:禁用,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKoxg2hi96yr9pf2m0stjomr3we` (`create_by`),
   KEY `FKsiko0qcr8ddamvrxf1tk4opgc` (`update_by`),
@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `sys_role` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:禁用,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKdkwvv0rm6j3d5l6hwsy2dplol` (`create_by`),
   KEY `FKrouqqi3f2bgc5o83wdstlh6q4` (`update_by`),
@@ -324,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
   `update_date` datetime DEFAULT NULL COMMENT '更新时间',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:冻结,1:正常）',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态（-1:删除,0:禁用,1:正常）',
   PRIMARY KEY (`id`),
   KEY `FKb3pkx0wbo6o8i8lj0gxr37v1n` (`dept_id`),
   CONSTRAINT `FKb3pkx0wbo6o8i8lj0gxr37v1n` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`)

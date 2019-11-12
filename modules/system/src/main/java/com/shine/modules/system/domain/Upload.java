@@ -65,7 +65,7 @@ public class Upload implements Serializable {
 	@NotFound(action= NotFoundAction.IGNORE)
 	@JoinColumn(name="create_by")
 	@JsonIgnore
-	private User createBy;
+	private SysUser createBy;
 
 	/**
 	 * 获取文件绝对路径

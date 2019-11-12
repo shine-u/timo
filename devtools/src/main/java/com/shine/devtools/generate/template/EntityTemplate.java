@@ -10,7 +10,7 @@ import com.shine.devtools.generate.enums.TierType;
 import com.shine.devtools.generate.utils.GenerateUtil;
 import com.shine.devtools.generate.utils.jAngel.nodes.*;
 import com.shine.devtools.generate.utils.parser.JavaParseUtil;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -81,7 +81,7 @@ public class EntityTemplate {
                     node.addAnnotation(NotFound.class, Format.of("action=$T.IGNORE", NotFoundAction.class));
                     node.addAnnotation(JoinColumn.class, Format.of("name=$S", "create_by"));
                     node.addAnnotation(JsonIgnore.class);
-                    node.setType(User.class);
+                    node.setType(SysUser.class);
                     break;
                 case "updateBy":
                     node.addAnnotation(LastModifiedBy.class);
@@ -89,7 +89,7 @@ public class EntityTemplate {
                     node.addAnnotation(NotFound.class, Format.of("action=$T.IGNORE", NotFoundAction.class));
                     node.addAnnotation(JoinColumn.class, Format.of("name=$S", "update_by"));
                     node.addAnnotation(JsonIgnore.class);
-                    node.setType(User.class);
+                    node.setType(SysUser.class);
                     break;
                 case "status":
                     node.setValue(Format.of("$T.OK.getCode()", StatusEnum.class));

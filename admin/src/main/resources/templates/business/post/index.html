@@ -31,13 +31,13 @@
                     </div>
                 </div>
                 <div class="pull-right screen-btn-group">
-                    <button class="layui-btn open-popup" data-title="添加帖子管理" th:attr="data-url=@{/business/post/add}" data-size="auto">
-                        <i class="fa fa-plus"></i> 添加</button>
+<!--                    <button class="layui-btn open-popup" data-title="添加帖子管理" th:attr="data-url=@{/business/post/add}" data-size="auto">-->
+<!--                        <i class="fa fa-plus"></i> 添加</button>-->
                     <div class="btn-group">
-                        <button class="layui-btn">操作<span class="caret"></span></button>
+                        <button class="layui-btn">审核<span class="caret"></span></button>
                         <dl class="layui-nav-child layui-anim layui-anim-upbit">
                             <dd><a class="ajax-status" th:href="@{/business/post/status/ok}">启用</a></dd>
-                            <dd><a class="ajax-status" th:href="@{/business/post/status/freezed}">冻结</a></dd>
+                            <dd><a class="ajax-status" th:href="@{/business/post/status/freezed}">禁用</a></dd>
                             <dd><a class="ajax-status" th:href="@{/business/post/status/delete}">删除</a></dd>
                         </dl>
                     </div>
@@ -66,8 +66,8 @@
                         <td th:text="${item.id}">主键ID</td>
                         <td th:text="${item.postTitle}">标题</td>
                         <td th:text="${#dicts.dataStatus(item.status)}">状态</td>
-                        <td th:text="${item.createDate}">创建时间</td>
-                        <td th:text="${item.updateDate}">更新时间</td>
+                        <td th:text="${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm:ss')}">创建时间</td>
+                        <td th:text="${#dates.format(item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">修改时间</td>
                         <td>
                             <a class="open-popup" data-title="编辑帖子管理" th:attr="data-url=@{'/business/post/edit/'+${item.id}}" data-size="auto" href="#">编辑</a>
                             <a class="open-popup" data-title="详细信息" th:attr="data-url=@{'/business/post/detail/'+${item.id}}" data-size="800,600" href="#">详细</a>

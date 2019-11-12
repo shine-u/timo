@@ -11,7 +11,7 @@ import com.shine.common.vo.ResultVo;
 import com.shine.component.actionLog.action.UserAction;
 import com.shine.component.actionLog.annotation.ActionLog;
 import com.shine.component.shiro.ShiroUtil;
-import com.shine.modules.system.domain.User;
+import com.shine.modules.system.domain.SysUser;
 import com.shine.modules.system.service.RoleService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -95,7 +95,7 @@ public class LoginController implements ErrorController {
             subject.login(token);
 
             // 判断是否拥有后台角色
-            User user = ShiroUtil.getSubject();
+            SysUser user = ShiroUtil.getSubject();
             if (roleService.existsUserOk(user.getId())) {
                 return ResultVoUtil.success("登录成功", new URL("/"));
             } else {
@@ -103,7 +103,7 @@ public class LoginController implements ErrorController {
                 return ResultVoUtil.error("您不是后台管理员！");
             }
         } catch (LockedAccountException e) {
-            return ResultVoUtil.error("该账号已被冻结");
+            return ResultVoUtil.error("该账号已被禁用");
         } catch (AuthenticationException e) {
             return ResultVoUtil.error("用户名或密码错误");
         }

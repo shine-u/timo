@@ -51,7 +51,7 @@ public class #{entity}ServiceImpl implements #{entity}Service {
     }
 
     /**
-     * 状态(启用，冻结，删除)/批量状态处理
+     * 状态(启用，禁用，删除)/批量状态处理
      */
     @Override
     @Transactional
